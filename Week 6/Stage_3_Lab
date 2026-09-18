@@ -1,0 +1,580 @@
+# Assignment 2- Case Study
+
+
+# Stage 3 Lab Activities
+
+
+# SmartCare Domain Modelling
+
+AI OFF -> AI ON -> COMPARE -> VERIFY | 1 hour
+
+
+## A - Requirements Review
+
+Highlight nouns, verbs and business rules in SmartCare v0.2.
+
+Nouns:
+
+Staff Members
+
+Management
+
+Patients
+
+Practitioners
+
+SmartCare
+
+Appointment
+
+Error
+
+Records
+
+Patient Name
+
+Practitioner Name
+
+Time
+
+Date
+
+Verbs:
+
+Check User Inputs
+
+Validate User Input
+
+Gather Input Data
+
+Appointment Input Validation
+
+Check if the Practitioner has an appointment scheduled for that Time and Date
+
+Record Appointment Information
+
+Display Scheduled Appointments
+
+Cancel Appointments
+
+Business Rules:
+
+Constraints:
+
+Small system
+
+Not a large-scale hospital information system
+
+Correct Error handling
+
+Easy to use
+
+Derivation Rules:
+
+Inputs will be in forms of Name (Alphabetic), Time (Numeric), and Date (Numeric), so any input outside of these data types is invalid.
+
+
+## B - Candidate Classes
+
+Record candidate concepts, supporting requirements, state and behaviour.
+
+
+<table>
+<tr>
+<th>Candidate</th>
+<th>Decision</th>
+<th>Behaviour</th>
+<th>Supporting Requirements</th>
+</tr>
+<tr>
+<td>Patient</td>
+<td>Accepted</td>
+<td>The Patient Class will act as the User Interface, and will allow the Patient to schedule appointments, and update scheduled appointments</td>
+<td>The client has requested a system to assist in booking and tracking appointment status.</td>
+</tr>
+<tr>
+<td>Practitioner</td>
+<td>Accepted</td>
+<td>The Practitioner Class will act as the Staff User Interface, as the Staff need to access the scheduled appointments list, and the Practitioners need to upload their own schedule to allow Patients to book with them.</td>
+<td>The client has requested a system to assist in tracking appointments, and to aid Practitioners in booking appointments.</td>
+</tr>
+<tr>
+<td>Appointment</td>
+<td>Accepted</td>
+<td>The Appointment Class will check the Inputs from the Users to ensure that they are of the correct Input type, and then will send the inputs to the Database.</td>
+<td>This will ensure the system can store and track the appointments properly.</td>
+</tr>
+<tr>
+<td>Name</td>
+<td>Rejected</td>
+<td>This Class would validate the inputs for the Names specifically.</td>
+<td>This is not particularly useful, the names could be validated in a single function, not requiring a Class.</td>
+</tr>
+<tr>
+<td>Clinic</td>
+<td>Maybe</td>
+<td>The Clinic Class could be useful as a User Interface for the other Staff Members within the clinic.</td>
+<td>This is not specified within the requirements but could be a useful suggestion.</td>
+</tr>
+<tr>
+<td>Database</td>
+<td>Accepted</td>
+<td>The DataBase Class would store all the appointment information, and access either all appointments or specific appointments from classification of Patient Name, Practitioner Name, or Date and Time.</td>
+<td>This Class is useful because there are multiple functions to complete, and the sorting and organisation of the database would be easier with a Class.</td>
+</tr>
+<tr>
+<td>Cancellation</td>
+<td>Rejected</td>
+<td>The Cancellation Class cancels appointments.</td>
+<td>This could be a single function within the Appointment Class.</td>
+</tr>
+<tr>
+<td>Status</td>
+<td>Maybe</td>
+<td>This Class could allow for updating and displaying the Status of a specific Appointment</td>
+<td>This could be useful as an individual function, but it could also be incorporated into the Database, Practitioner, and Patient Classes. Although, a class of its own could make the program simpler.</td>
+</tr>
+</table>
+
+
+## C - CRC Cards
+
+Create CRC cards for Patient, Practitioner and Appointment.
+
+
+### Patient
+
+
+<table>
+<tr>
+<th>Responsibilities</th>
+<th>Collaborators</th>
+</tr>
+<tr>
+<td>Schedule Appointments. Provide Inputs for when the appointment is, what Practitioner it is with, and their name.</td>
+<td>Practitioner in appointment information. Practitioners need to provide when they are free so the Patient can book</td>
+</tr>
+<tr>
+<td>Update Scheduled Appointments. In case of change, Patients need to cancel or updated the status of appointments.</td>
+<td>Appointment. Input the required information into the Appointment system so that the system can store the data.</td>
+</tr>
+</table>
+
+
+### Practitioner
+
+
+<table>
+<tr>
+<th>Responsibilities</th>
+<th>Collaborators</th>
+</tr>
+<tr>
+<td>Provide Schedule. Practitioners need to provide their schedules to the system so it can determine when the Practitioner is free</td>
+<td>Patient. The Patient needs to schedule an appointment in the system based on when the Practitioner is available.</td>
+</tr>
+<tr>
+<td>Reading Scheduled Appointments. Practitioners need to read the appointments scheduled for them within the system.</td>
+<td>Appointment. Input Practitioner Schedule to allow the Appointment system to track appointments and availability.</td>
+</tr>
+</table>
+
+
+### Appointment
+
+
+<table>
+<tr>
+<th>Responsibilities</th>
+<th>Collaborators</th>
+</tr>
+<tr>
+<td>Store Appointment Information. Placing the Appointment information into a Database.</td>
+<td>Patient. The Patient needs to provide inputs to the system to allow it to track and store the appointments</td>
+</tr>
+<tr>
+<td>Display Information. Display Appointments Scheduled, Patient names, Practitioner names, and Time and Date of appointments.</td>
+<td>Practitioner. Practitioners need to provide their schedule to the system to allow appointment scheduling.</td>
+</tr>
+</table>
+
+
+## D - UML Model
+
+Draw classes, attributes, operations, associations and multiplicities.
+
+
+<table>
+<tr>
+<th>Name: Patient</th>
+<th>Name: Practitioner</th>
+<th>Name: Appointment</th>
+</tr>
+<tr>
+<td>Attributes: +patient_Name: String +patient_ID: Integer +practitioner_Name: String +appointment_TimeAndDate: String</td>
+<td>Attributes: +practitioner_Name: String +practitioner_Availability: String +practitioner_Field: String</td>
+<td>Attributes: +appointments_Information: Dictionary</td>
+</tr>
+<tr>
+<td>Operations: -generateID() -appointmentInputVerification()</td>
+<td>Operations: -inputVerification() -updateAvailability() +appointmentAllowed()</td>
+<td>Operations: +bookAppointment() +updateAppointmentStatus() +cancelAppointment() +displayAppointments()</td>
+</tr>
+<tr>
+<td>Defensible Relationships: Booking, Updating, and Cancelling appointments through Appointment Class Using appointmentAllowed() to verify the appointment before booking it.</td>
+<td>Defensible Relationships: Accessing the practitioner_Name, and appointment_TimeAndDate from Patient to verify an appointment can be booked. Accessing displayAppointments() from Appointment Class to show Practitioners all the appointments.</td>
+<td>Defensible Relationships: Using practitioner_Name, patient_Name, patient_ID, and appointment_TimeAndDate from Patient Class to Book Appointments, Update Appointments, and Cancel Appointments.</td>
+</tr>
+<tr>
+<td>Multiplicities: This class will quickly store the data in the Appointment Class, therefore the multiplicities is based on how many devices can connect to the program.</td>
+<td>Multiplicities: This class will have as many multiplicities as Practitioners in the Clinic</td>
+<td>Multiplicities: 1 Instance of this class, storing data.</td>
+</tr>
+</table>
+
+
+## E - AI Design Review
+
+Ask AI to suggest classes and relationships using only confirmed requirements; require supporting requirement IDs.
+
+AI Answer: “
+
+Below is a clean, requirementdriven class model for SmartCare v0.2, based only on confirmed requirements in your document. Every class and relationship is explicitly supported by requirement IDs, and nothing speculative is included.
+
+📘 Core Classes (Confirmed by Requirements)
+
+1\. Appointment
+
+Supported by: FR03, FR05, FR06, FR07, FR08; NFR04; Acceptance Criteria Reasoning: The system must store Patient Name, Practitioner Name, Time & Date, detect clashes, display appointments, and delete them.
+
+Attributes
+
+patientName : string
+
+practitionerName : string
+
+appointmentDateTime : datetime
+
+Responsibilities
+
+Store appointment data (FR06)
+
+Validate input (FR04)
+
+Provide data for display (FR07)
+
+2\. AppointmentBook (or AppointmentManager)
+
+Supported by: FR01, FR02, FR05, FR06, FR07, FR08; NFR01, NFR02, NFR03, NFR04 Reasoning: The system must check user choices, record appointments, detect doublebooking, display history, and cancel appointments.
+
+Attributes
+
+appointments : List\\<Appointment>
+
+Methods
+
+addAppointment() (FR06)
+
+validateAppointmentInput() (FR04)
+
+checkPractitionerAvailability() (FR05)
+
+displayAppointments() (FR07)
+
+cancelAppointment() (FR08)
+
+3\. UserInterface
+
+Supported by: FR01, FR02, FR03; NFR03 Reasoning: Requirements specify menu selection, gathering user input, and validating menu choices.
+
+Responsibilities
+
+Present menu options (FR01)
+
+Validate menu selection (FR02)
+
+Gather patient/practitioner/date input (FR03)
+
+Display feedback/errors (NFR03)
+
+4\. DataStore (Filebased persistence)
+
+Supported by: NFR04 Reasoning: The system must store data externally so it persists after shutdown.
+
+Responsibilities
+
+saveAppointments()
+
+loadAppointments()
+
+📘 Optional Classes (Still Confirmed by Requirements)
+
+These are not strictly required but are directly supported by the text.
+
+5\. Patient
+
+Supported by: US01, Acceptance Criteria, FR03 Reasoning: Requirements repeatedly reference “Patient Name” as a distinct concept. Only the name is confirmed; no other patient data is in scope.
+
+Attributes
+
+name : string
+
+6\. Practitioner
+
+Supported by: US02, FR03, FR05, Acceptance Criteria Reasoning: Practitioners must be identifiable and checked for availability.
+
+Attributes
+
+name : string
+
+📘 Relationships (All supported by requirement IDs)
+
+1\. AppointmentBook contains many Appointments
+
+Supported by: FR06, FR07, FR08
+
+“Save… appointment information” “Displays all appointments” “Delete recorded appointments”
+
+Relationship: AppointmentBook 1 --- * Appointment
+
+2\. Appointment associates with Patient
+
+Supported by: FR03, Acceptance Criteria
+
+“Gather… Patient Name” “Provide… Patient Name”
+
+Relationship: Appointment * --- 1 Patient
+
+3\. Appointment associates with Practitioner
+
+Supported by: FR03, FR05
+
+“Gather… Practitioner Name” “Check if the Practitioner has an appointment scheduled…”
+
+Relationship: Appointment * --- 1 Practitioner
+
+4\. UserInterface uses AppointmentBook
+
+Supported by: FR01, FR02, FR03
+
+“Check user inputs” “Menu user input validation” “Gather input data”
+
+Relationship: UserInterface → AppointmentBook
+
+5\. AppointmentBook uses DataStore
+
+Supported by: NFR04
+
+“Using an external file to store all data so it can be saved past when the program shuts down”
+
+Relationship: AppointmentBook → DataStore
+
+📘 Final Class Diagram (Textual UML)
+
+Code
+
++------------------+ 1 * +------------------+
+
+| AppointmentBook |-----------------------| Appointment |
+
++------------------+ +------------------+
+
+| appointments[] | | patientName |
+
+| addAppointment() | | practitionerName |
+
+| cancelAppointment() | appointmentDateTime |
+
+| checkPractitionerAvailability() +------------------+
+
+| displayAppointments() * 1
+
+| validateAppointmentInput() ----------- +------------------+
+
+| load/save via DataStore | | Patient |
+
++------------------+ | +------------------+
+
+|
+
+| * 1
+
+------------- +------------------+
+
+| Practitioner |
+
++------------------+
+
++------------------+
+
+| UserInterface |
+
++------------------+
+
+| showMenu() |
+
+| getUserInput() |
+
+| validateMenu() |
+
+| displayErrors() |
+
++------------------+
+
+|
+
+| uses
+
+v
+
++------------------+
+
+| AppointmentBook |
+
++------------------+
+
++------------------+
+
+| DataStore |
+
++------------------+
+
+| saveAppointments()|
+
+| loadAppointments()|
+
++------------------+
+
+Would you like the next step?
+
+I can produce:
+
+A full UML diagram (image)
+
+A Python class skeleton that matches the requirements
+
+A mapping table showing each requirement → class/method
+
+A sequence diagram for booking/cancelling appointments
+
+Just tell me what format you want.
+
+”
+
+
+## F - Compare and Decide
+
+Record at least one accepted, modified and rejected AI suggestion.
+
+Patient, Practitioner, and Appointment are all the same Classes that were identified in the other documents – Accepted.
+
+AppointmentBook. This suggestion is a potentially good idea, as the Appointment Class is already going to be overloaded with displaying the appointments and checking the Patient Name, Practitioner Name, and Time and Date for any overlapping appointment. However, the AI has stated many things between the AppointmentBook and Appointment Classes which overlap, hence why this idea is Rejected. Because if they are already overlapping then merging them would be easier.
+
+DataStore. This is a rejected suggestion, as the Appointment Class is already handling this task.
+
+UserInterface. This is rejected. The User Interface would not be run through a class, as there is no need to run multiple at a time. For each device running this software there is only a need for one User Interface, although creating a class could allow for multiple devices to use it easier.
+
+
+## G - Python Skeletons
+
+Create simple Patient, Practitioner and Appointment class skeletons.
+
+Class: Patient
+
+'''python
+
+def generateID():
+
+patient_ID = previous_ID + 1
+
+previous_ID = patient_ID
+
+def appointmentInputVerification():
+
+\# Placeholder for checking Alphabetic characters.
+
+if patient_Name = Alphabetic
+
+if practitioner_Name = Alphabetic
+
+if appointment_TimeAndDate = Numeric
+
+'''
+
+Class: Practitioner
+
+'''Python
+
+def inputVerification():
+
+if practitioner_Name and practitioner_Field and practitioner_Availability = String
+
+def updateAvailability():
+
+if practitioner_Name and patient_Name and appointment_TimeAndDate = existing appointment:
+
+oldAppointmentInformation = newAppointmentInformation
+
+def appointmentAllowed():
+
+for each i in appointments_Information:
+
+ifappointment_TimeAndDate = appointment_TimeAndDateand practitioner_Name = practitioner_Name:
+
+print("Appointment Clash, try another time")
+
+'''
+
+Class: Appointment
+
+'''Python
+
+def bookAppointment:
+
+appointments_Information[].append(appointment_TimeAndDate = appointment_TimeAndDate, patient_Name = patient_Name, practitioner_Name = practitioner_Name)
+
+def appointmentExists():
+
+if patient_Name and practitioner_Name and appointment_TimeAndDate:
+
+return True
+
+def updateAppointmentStatus():
+
+if Practitioner.appointmentAllowed() and appointmentExists():
+
+change Dictionary appointment to new details
+
+def cancelAppointment():
+
+if appointmentExists():
+
+delete Appointment
+
+def displayAppointments():
+
+if patient_Name and practitioner_Name and appointment_TimeAndDate:
+
+for all i in appointment:
+
+print(appointment_information[i])
+
+'''
+
+
+## H - Consistency Check
+
+Check model-code consistency; do not implement full behaviour yet.
+
+The logic of the system is good, however, there is no direct code for certain sections. It is rather Pseudocode than actual code. The program does not include the User Interface, nor does it print many things for the User to see. These could all be altered to have a better UI, same as being more specific on how the appointments are stored, and how the system functions together.
+
+
+## Reflection
+
+What modelling decision was hardest? Where did AI over-design? What evidence supported your final choices?
+
+The hardest decision while creating this model was in the aspect of functions, as there could be numerous different functions, but to pick and choose the specific functions to make the system optimal and not redundant was difficult.
+
+References:
+
+What are business rules?, https://www.ibm.com/think/topics/business-rules, accessed: 16/09/2026

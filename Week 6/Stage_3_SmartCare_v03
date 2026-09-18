@@ -1,0 +1,73 @@
+# SmartCare v0.3 - Domain Model Workbook
+
+Week 6 student resource
+
+## Requirement-to-Concept Trace
+
+| Requirement | Concept | State/behaviour | Decision |
+|------------|---------|-----------------|----------|
+| FR-01: Check User Input | Patient | Check for which option the user has selected | Accepted |
+| FR-02: Menu User Input Validation | Patient | Verify the selection is a valid selection | Accepted |
+| FR-03: Gather Input Data from User | Patient | Gather information: Patient Name, Practitioner Name, Time and Date of Appointment | Accepted |
+| FR-04: Appointment Information Input Validation | Patient | Validate that the given input types are accepted | Accepted |
+| FR-05: Check if the Practitioner has an Appointment Scheduled | Practitioner | Match the Time, Date, and Practitioner Name against the already scheduled appointments to confirm it is available. | Accepted – Although there is a need for another function to add the Practitioner’s Availability |
+| FR-06: Record Appointment Information | Appointment | Store Appointment Information | Accepted |
+| FR-07: Display Scheduled Appointments | Appointment | Display the Scheduled appointments, through a sorted system or just all at once. | Accepted – Although there could be another function to sort through the appointments. |
+| FR-08: Cancellation of Appointments | Appointment | Deletes a given appointment from the Database. | Accepted |
+
+## CRC Cards
+
+### Patient
+
+| Responsibilities | Collaborators |
+|------------------|--------------|
+| Schedule Appointments. Provide Inputs for when the appointment is, what Practitioner it is with, and their name. | Practitioner in appointment information. Practitioners need to provide when they are free so the Patient can book |
+| Update Scheduled Appointments. In case of change, Patients need to cancel or updated the status of appointments. | Appointment. Input the required information into the Appointment system so that the system can store the data. |
+
+### Practitioner
+
+| Responsibilities | Collaborators |
+|------------------|--------------|
+| Provide Schedule. Practitioners need to provide their schedules to the system so it can determine when the Practitioner is free | Patient. The Patient needs to schedule an appointment in the system based on when the Practitioner is available. |
+| Reading Scheduled Appointments. Practitioners need to read the appointments scheduled for them within the system. | Appointment. Input Practitioner Schedule to allow the Appointment system to track appointments and availability. |
+
+### Appointment
+
+| Responsibilities | Collaborators |
+|------------------|--------------|
+| Store Appointment Information. | Patient. The Patient needs to provide inputs to the system to allow it to track and store the appointments |
+| Display Information. Display Appointments Scheduled, Patient names, Practitioner names, and Time and Date of appointments. | Practitioner. Practitioners need to provide their schedule to the system to allow appointment scheduling. |
+
+### Optional class
+
+| Responsibilities | Collaborators |
+|------------------|--------------|
+|  |  |
+|  |  |
+
+## UML Class Diagram
+
+Insert/draw UML here. Include defensible relationships and multiplicities.
+
+| Name: Patient | Name: Practitioner | Name: Appointment |
+|---------------|--------------------|-------------------|
+| Attributes: +patient_Name: String +patient_ID: Integer +practitioner_Name: String +appointment_TimeAndDate: String | Attributes: +practitioner_Name: String +practitioner_Availability: String +practitioner_Field: String | Attributes: +appointments_Information: Dictionary |
+| Operations: -generateID() -appointmentInputVerification() | Operations: -inputVerification() -updateAvailability() +appointmentAllowed() | Operations: +bookAppointment() +updateAppointmentStatus() +cancelAppointment() +displayAppointments() |
+| Defensible Relationships: Booking, Updating, and Cancelling appointments through Appointment Class Using appointmentAllowed() to verify the appointment before booking it. | Defensible Relationships: Accessing the practitioner_Name, and appointment_TimeAndDate from Patient to verify an appointment can be booked. Accessing displayAppointments() from Appointment Class to show Practitioners all the appointments. | Defensible Relationships: Using practitioner_Name, patient_Name, patient_ID, and appointment_TimeAndDate from Patient Class to Book Appointments, Update Appointments, and Cancel Appointments. |
+| Multiplicities: This class will quickly store the data in the Appointment Class, therefore the multiplicities is based on how many devices can connect to the program. | Multiplicities: This class will have as many multiplicities as Practitioners in the Clinic | Multiplicities: 1 Instance of this class, storing data. |
+
+## Design Rationale
+
+Explain class selection, responsibility allocation and key relationships.
+
+The three classes chosen were Patient, Practitioner, and Appointment because it keeps the system simple, and sorts the tasks into three different sections. The Patient class is responsible for all the Patient user interactions and verifying them to then be passed onto another class, this is because the Patient could input incorrect data. The Practitioner class is responsible for updating the Practitioner’s availability, and verifying that an appointment is allowed, as the Practitioner’s schedule is extremely important to include. The Appointment Class is responsible for the functions of booking, updating, cancelling, and displaying the list of appointments. This is extremely important to the project because the main goal of the program is to manage and track appointments.
+
+## AI Design Review Record
+
+| AI suggestion | Evidence | Decision | Reason | Model change |
+|--------------|----------|----------|--------|--------------|
+|  |  |  |  |  |
+|  |  |  |  |  |
+|  |  |  |  |  |
+|  |  |  |  |  |
+|  |  |  |  |  |

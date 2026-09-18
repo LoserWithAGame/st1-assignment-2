@@ -1,0 +1,76 @@
+# Assignment 2-Case Study
+
+# Stage 3 Tutorial Activities
+
+# From Requirements to Domain Models
+
+Week 6 | 60 minutes
+
+## Candidate Concepts
+
+| Candidate | Class? | Reason |
+|----------|--------|--------|
+| Patient | Yes | The Patient side of the system would require separate parameters |
+| Practitioner | Yes | The Practitioner side of the system requires an ability to change and update availability. |
+| Appointment | Yes | The Appointment class itself would book and store the appointments |
+| Name | No | This would be a variable taken from an input, rather than a class |
+| Clinic | Maybe | The Clinic could operate using the Patient and Practitioner classes; however, it might be easier to use to have a separate class entirely. But since a request was to keep the system small, this might be out of scope. |
+| Database | Yes | Placing a scheduled appointment within the Database would be classified as a Class. |
+| Cancellation | Maybe | This feature could be implemented within the Appointment Class or the Status Class. However, it would be best to keep the two in collaboration but separate. |
+| Status | Maybe | This could be a simple indicator for each appointment scheduled. However, it could also be helpful to have a class to update the status of an appointment. |
+
+## CRC Cards
+
+### Patient
+
+| Responsibilities | Collaborators |
+|------------------|--------------|
+| Schedule Appointments. Provide Inputs for when the appointment is, what Practitioner it is with, and their name. | Practitioner in appointment information. Practitioners need to provide when they are free so the Patient can book |
+| Update Scheduled Appointments. In case of change, Patients need to cancel or updated the status of appointments. | Appointment. Input the required information into the Appointment system so that the system can store the data. |
+
+### Practitioner
+
+| Responsibilities | Collaborators |
+|------------------|--------------|
+| Provide Schedule. Practitioners need to provide their schedules to the system so it can determine when the Practitioner is free | Patient. The Patient needs to schedule an appointment in the system based on when the Practitioner is available. |
+| Reading Scheduled Appointments. Practitioners need to read the appointments scheduled for them within the system. | Appointment. Input Practitioner Schedule to allow the Appointment system to track appointments and availability. |
+
+### Appointment
+
+| Responsibilities | Collaborators |
+|------------------|--------------|
+| Store Appointment Information. | Patient. The Patient needs to provide inputs to the system to allow it to track and store the appointments |
+| Display Information. Display Appointments Scheduled, Patient names, Practitioner names, and Time and Date of appointments. | Practitioner. Practitioners need to provide their schedule to the system to allow appointment scheduling. |
+
+## Relationship Reasoning
+
+**Patient to Appointment: which relationship and why?**
+
+Patient to Appointment has a relationship because the Appointment system relies on the information of:
+
+- Patient Name  
+- Practitioner Name  
+- Time and Date  
+
+Which can only be provided by the Patient themselves.
+
+**Practitioner to Appointment: what multiplicity?**
+
+The Patient and Practitioner Classes are extremely interwoven, as the Patient needs to access the provided Practitioner’s Schedule to book an appointment, and the Practitioners need to access the scheduled appointments list and the status of the appointment which is done by the Patient. Neither class can function to the best of their ability without the other.
+
+**Should Appointment inherit from Patient?**
+
+Yes. Appointment requires certain inputs regarding the appointment, and since the Patient is the person booking the appointment, the system must receive the inputs from the Patient.
+
+**Does Clinic need to own every object?**
+
+## AI Model Critique
+
+Critique AI proposals: PatientManager, PractitionerManager, AppointmentManager, ClinicController, NotificationManager, ScheduleEngine.
+
+PatientManager: Good Selection  
+PractitionerManager: Good Selection  
+AppointmentManager: Good Selection  
+ClinicController: Good selection, there should be a centralized control system for the clinic to use.  
+NotificationManager: Bad Selection, none of the requirements state there should be notifications for appointments.  
+ScheduleEngine: Good/Bad Selection, having an Engine to perform the tasks could make the system more efficient, however, it might be out of the scope.
